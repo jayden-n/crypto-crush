@@ -1,5 +1,11 @@
+import CoinSearch from "../components/CoinSearch";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <CoinSearch />
+    </div>
+  );
 };
 
 export default HomePage;

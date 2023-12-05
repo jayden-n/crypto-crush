@@ -6,54 +6,45 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import AccountPage from "./pages/AccountPage";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { fetchCoinsApi } from "./services/api/fetchCoinsApi";
 
 function App() {
   const [coins, setCoins] = useState([]);
-
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=market_cap_desc&per_page=20&page=1&sparkline=true&locale=en";
-  //   //   const url = `${baseUrl}/coins/markets?vs_currency=cad&order=market_cap_desc&per_page=20&page=1&sparkline=true&locale=en`;
-
-  //   useEffect(() => {
-  //     axios.get(url).then((res) => {
-  //       setCoins(res.data);
-  //       console.log(res.data);
-  //     });
-  //   }, [url]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchCoins = async () => {
+    setIsLoading(true);
     try {
-      const res = await fetch(url);
-      const data = await res.json();
+      // split into smaller components
+      const fetchCoinsData = await fetchCoinsApi();
+      setCoins(fetchCoinsData);
 
-      // if fetch cannot reach server
-      if (!res.ok) {
-        throw new Error(
-          "Something went wrong when connecting to the server, please wait a moment...",
-        );
-      }
-
-      setCoins(data);
-      console.log(data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching coins: ", error.message);
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchCoins();
-  }, [url]);
+  }, []);
 
   return (
     <ThemeProvider>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/account" element={<AccountPage />} />
-      </Routes>
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<HomePage coins={coins} />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/account" element={<AccountPage />} />
+          </Routes>{" "}
+        </>
+      )}
     </ThemeProvider>
   );
 }

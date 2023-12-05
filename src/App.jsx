@@ -1,5 +1,7 @@
+import { ThemeProvider } from "./context/ThemeContext";
+
 function App() {
-  return <>dsad</>;
+  return <ThemeProvider></ThemeProvider>;
 }
 
 export default App;

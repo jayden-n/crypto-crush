@@ -1,9 +1,9 @@
 import CoinSearch from "../components/CoinSearch";
 
-const HomePage = () => {
+const HomePage = ({ coins }) => {
   return (
     <div>
-      <CoinSearch />
+      <CoinSearch coins={coins} />
     </div>
   );
 };

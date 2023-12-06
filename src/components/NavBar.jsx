@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
+import Logo from "../assets/favicon.ico";
 
 const NavBar = () => {
   const [isMobileScreen, setIsMobileScreen] = useState(false);
@@ -14,7 +15,10 @@ const NavBar = () => {
     <div className="rounded-div flex h-20 items-center justify-between font-bold duration-300 ease-in">
       {/* Desktop Menu */}
       <Link to="/">
-        <h1 className="text-2xl">CryptoCrush</h1>
+        <div className="flex items-center">
+          <img src={Logo} alt="Crypto Crush Logo" className="mr-2 w-12" />
+          <p className="text-2xl">CryptoCrush</p>
+        </div>
       </Link>
 
       <div className="hidden md:block">
@@ -22,7 +26,7 @@ const NavBar = () => {
       </div>
 
       <div className="hidden md:block">
-        <Link to="/login" className="p-4 hover:text-accent">
+        <Link to="/login" className="hover:text-thirdary p-4">
           Log In
         </Link>
         <Link

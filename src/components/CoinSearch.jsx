@@ -31,7 +31,7 @@ const CoinSearch = ({ coins }) => {
             <th></th>
             <th className="px-4">#</th>
             <th className="text-left">Coin</th>
-            <th></th>
+            <th>Symbol</th>
             <th>Price</th>
             <th>24h</th>
             <th className="hidden md:table-cell">24h Volume</th>

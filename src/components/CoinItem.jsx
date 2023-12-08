@@ -1,19 +1,16 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineStar } from "react-icons/ai";
-import { Sparklines, SparklinesLine, SparklinesSpots } from "react-sparklines";
-import { ThemeContext } from "../context/ThemeContext";
-import { useContext } from "react";
+import { Sparklines, SparklinesLine } from "react-sparklines";
+
 import { PiTrendDownBold } from "react-icons/pi";
 import { PiTrendUpBold } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 const CoinItem = ({ coin }) => {
-  const { theme } = useContext(ThemeContext);
-  const fillColor = theme === "dark" ? "#fcba29" : "#8e44af";
-
   return (
-    <tr className="h-[78px] overflow-hidden border-b ">
+    <tr className="h-[78px] overflow-hidden border-b duration-75 ease-in hover:bg-secondary ">
       <td>
-        <AiOutlineStar size={15} />
+        <AiOutlineStar size={18} />
       </td>
 
       {/* Coin Ranking */}
@@ -21,14 +18,19 @@ const CoinItem = ({ coin }) => {
 
       {/* Coins Name */}
       <td>
-        <div className="flex items-center">
-          <img
-            className="mr-3 w-11 rounded-full"
-            src={coin.image}
-            alt={coin.id}
-          />
-          <p className="hidden sm:table-cell">{coin.name}</p>
-        </div>
+        {/* dynamic link */}
+        <Link to={`/coin/${coin?.id}`}>
+          <div className="flex items-center">
+            <img
+              className="mr-2 w-6 rounded-full"
+              src={coin.image}
+              alt={coin.id}
+            />
+            <p className="hidden text-sm font-semibold hover:underline sm:table-cell">
+              {coin.name}
+            </p>
+          </div>
+        </Link>
       </td>
       {/* Coins Name Symbol */}
       <td>{coin?.symbol.toUpperCase()}</td>
@@ -70,7 +72,7 @@ const CoinItem = ({ coin }) => {
       {/* Last 7 days GRAPH */}
       <td>
         {/* data must be an array */}
-        <Sparklines data={coin.sparkline_in_7d.price} limit={17}>
+        {/* <Sparklines data={coin.sparkline_in_7d.price} limit={17}>
           <SparklinesLine
             style={{
               stroke: "none",
@@ -78,7 +80,26 @@ const CoinItem = ({ coin }) => {
               fillOpacity: "1",
             }}
           />
-        </Sparklines>
+        </Sparklines> */}
+        <Link to={`/coin/${coin?.id}`}>
+          <Sparklines data={coin.sparkline_in_7d.price}>
+            <SparklinesLine
+              style={{
+                strokeWidth: 3,
+
+                // conditional rendering when price goes down/up
+                stroke:
+                  coin.sparkline_in_7d.price[0] <=
+                  coin.sparkline_in_7d.price[
+                    coin.sparkline_in_7d.price.length - 1
+                  ]
+                    ? "#00cc00"
+                    : "#ff0000",
+                fill: "none",
+              }}
+            />
+          </Sparklines>
+        </Link>
       </td>
     </tr>
   );

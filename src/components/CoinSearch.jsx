@@ -37,8 +37,8 @@ const CoinSearch = ({ coins }) => {
         </div>
       ) : (
         <table className="w-full border-collapse text-center text-sm">
-          <thead>
-            <tr className="h-[50px] border-b">
+          <thead className="text-xs">
+            <tr className="h-[40px] border-b">
               <th></th>
               <th className="px-4">#</th>
               <th className="text-left">Coin</th>
@@ -73,7 +73,9 @@ const CoinSearch = ({ coins }) => {
   return (
     <div className="rounded-div my-4">
       <div className="flex flex-col justify-between pb-6 pt-4 text-center md:flex-row md:text-right">
-        <h1 className="my-2 text-xl font-bold">Search Crypto</h1>
+        <h1 className="my-2 text-xl font-bold">
+          Cryptocurrency Prices by Market Cap
+        </h1>
         <form>
           <input
             onChange={handleSearchText}

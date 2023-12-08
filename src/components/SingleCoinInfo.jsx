@@ -3,6 +3,7 @@ import { FaGithub, FaReddit, FaTwitter } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 import { ThemeContext } from "../context/ThemeContext";
+import { PiTrendDownBold, PiTrendUpBold } from "react-icons/pi";
 
 /* eslint-disable react/prop-types */
 const SingleCoinInfo = ({ coin }) => {
@@ -12,7 +13,7 @@ const SingleCoinInfo = ({ coin }) => {
   return (
     <div className="grid gap-12 md:grid-cols-2">
       <div>
-        <div className="flex items-center justify-between">
+        <div className="mb-2 flex items-center justify-between">
           {coin?.market_data?.current_price ? (
             <p className="text-3xl font-bold">
               C
@@ -25,12 +26,30 @@ const SingleCoinInfo = ({ coin }) => {
           <p>7 days</p>
         </div>
         <div>
-          <Sparklines data={coin?.market_data?.sparkline_7d.price} limit={20}>
+          {/* <Sparklines data={coin?.market_data?.sparkline_7d.price} limit={20}>
             <SparklinesLine
               style={{
                 stroke: "none",
                 fill: fillColor,
                 fillOpacity: "1",
+              }}
+            />
+          </Sparklines> */}
+
+          <Sparklines data={coin?.market_data?.sparkline_7d.price}>
+            <SparklinesLine
+              style={{
+                strokeWidth: 1.5,
+
+                // conditional rendering when coin price goes down/up
+                stroke:
+                  coin?.market_data?.sparkline_7d.price[0] <=
+                  coin?.market_data?.sparkline_7d.price[
+                    coin?.market_data?.sparkline_7d.price.length - 1
+                  ]
+                    ? "#00cc00"
+                    : "#ff0000",
+                fill: "none",
               }}
             />
           </Sparklines>
@@ -56,7 +75,7 @@ const SingleCoinInfo = ({ coin }) => {
                 })}
               </span>
             ) : (
-              <span>Invalid date</span>
+              <span>(Un-revealed)</span>
             )}
           </div>
 
@@ -76,75 +95,141 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
         </div>
-
-        {/* <div className="flex justify-between "></div> */}
       </div>
 
       {/* market stats */}
       <div>
         <p className="text-2xl font-bold">Market Stats</p>
-        <div className="flex justify-between py-4">
+        <div className="flex items-center justify-between py-4">
           <div>
-            <p className="text-sm text-gray-500">Market Rank</p>
+            <p className="text-sm text-gray-500">Market Rank</p>#
             {coin?.market_cap_rank}
           </div>
           <div>
             <p className="text-sm text-gray-500">Hashing Algorithm</p>
-            {coin.hashing_algorithm ? <p>{coin.hashing_algorithm}</p> : null}
+            {coin.hashing_algorithm ? (
+              <p>{coin.hashing_algorithm}</p>
+            ) : (
+              <p>(Not Exposed)</p>
+            )}
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <p className="text-sm text-gray-500">Trust Score</p>
-            {coin?.tickers ? <p>{coin?.liquidity_score.toFixed(2)}</p> : null}
+            {coin?.tickers ? (
+              <p
+                className={`text-xl font-bold ${
+                  coin.liquidity_score > 75
+                    ? "text-green-500"
+                    : "text-yellow-500"
+                }`}
+              >
+                {coin?.liquidity_score.toFixed(2)}
+              </p>
+            ) : null}
           </div>
         </div>
 
         {/* price change in 2 weeks */}
         <div className="flex justify-between py-4">
           <div>
-            <p className="text-sm text-gray-500">Price Change (24h)</p>
-            {coin?.market_data
-              ? coin?.market_data?.price_change_percentage_24h.toFixed(2)
-              : null}
-            %
+            <p className="mb-2 text-sm text-gray-500">Price Change (24h)</p>
+            {coin?.market_data ? (
+              coin?.market_data?.price_change_percentage_24h > 0 ? (
+                <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+                  <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
+                  {coin?.market_data?.price_change_percentage_24h.toFixed(2)}%
+                </p>
+              ) : (
+                <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+                  <PiTrendDownBold className="mr-2" size={15} />
+                  {coin?.market_data?.price_change_percentage_24h.toFixed(2)}%
+                </p>
+              )
+            ) : null}
           </div>
           <div>
-            <p className="text-sm text-gray-500">Price Change (7d)</p>
-            {coin?.market_data
-              ? coin?.market_data?.price_change_percentage_7d.toFixed(2)
-              : null}
-            %
+            <p className="mb-2 text-sm text-gray-500">Price Change (7d)</p>
+            {coin?.market_data ? (
+              coin?.market_data?.price_change_percentage_7d > 0 ? (
+                <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+                  <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
+                  {coin?.market_data?.price_change_percentage_7d.toFixed(2)}%
+                </p>
+              ) : (
+                <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+                  <PiTrendDownBold className="mr-2" size={15} />
+                  {coin?.market_data?.price_change_percentage_7d.toFixed(2)}%
+                </p>
+              )
+            ) : null}
           </div>
           <div>
-            <p className="text-sm text-gray-500">Price Change (14d)</p>
-            {coin?.market_data
-              ? coin?.market_data?.price_change_percentage_14d.toFixed(2)
-              : null}
-            %
+            <p className="mb-2 text-sm text-gray-500">Price Change (14d)</p>
+            {coin?.market_data ? (
+              coin?.market_data?.price_change_percentage_14d > 0 ? (
+                <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+                  <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
+                  {coin?.market_data?.price_change_percentage_14d.toFixed(2)}%
+                </p>
+              ) : (
+                <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+                  <PiTrendDownBold className="mr-2" size={15} />
+                  {coin?.market_data?.price_change_percentage_14d.toFixed(2)}%
+                </p>
+              )
+            ) : null}
           </div>
         </div>
 
         {/* price change in long term */}
         <div className="flex justify-between py-4">
           <div>
-            <p className="text-sm text-gray-500">Price Change (30d)</p>
-            {coin?.market_data
-              ? coin?.market_data?.price_change_percentage_30d.toFixed(2)
-              : null}
-            %
+            <p className="mb-2 text-sm text-gray-500">Price Change (30d)</p>
+            {coin?.market_data ? (
+              coin?.market_data?.price_change_percentage_30d > 0 ? (
+                <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+                  <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
+                  {coin?.market_data?.price_change_percentage_30d.toFixed(2)}%
+                </p>
+              ) : (
+                <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+                  <PiTrendDownBold className="mr-2" size={15} />
+                  {coin?.market_data?.price_change_percentage_30d.toFixed(2)}%
+                </p>
+              )
+            ) : null}
           </div>
           <div>
-            <p className="text-sm text-gray-500">Price Change (60d)</p>
-            {coin?.market_data
-              ? coin?.market_data?.price_change_percentage_60d.toFixed(2)
-              : null}
-            %
+            <p className="mb-2 text-sm text-gray-500">Price Change (60d)</p>
+            {coin?.market_data ? (
+              coin?.market_data?.price_change_percentage_60d > 0 ? (
+                <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+                  <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
+                  {coin?.market_data?.price_change_percentage_60d.toFixed(2)}%
+                </p>
+              ) : (
+                <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+                  <PiTrendDownBold className="mr-2" size={15} />
+                  {coin?.market_data?.price_change_percentage_60d.toFixed(2)}%
+                </p>
+              )
+            ) : null}
           </div>
           <div>
-            <p className="text-sm text-gray-500">Price Change (1y)</p>
-            {coin?.market_data
-              ? coin?.market_data?.price_change_percentage_1y.toFixed(2)
-              : null}
-            %
+            <p className="mb-2 text-sm text-gray-500">Price Change (1y)</p>
+            {coin?.market_data ? (
+              coin?.market_data?.price_change_percentage_1y > 0 ? (
+                <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+                  <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
+                  {coin?.market_data?.price_change_percentage_1y.toFixed(2)}%
+                </p>
+              ) : (
+                <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+                  <PiTrendDownBold className="mr-2" size={15} />
+                  {coin?.market_data?.price_change_percentage_1y.toFixed(2)}%
+                </p>
+              )
+            ) : null}
           </div>
         </div>
 
@@ -158,6 +243,7 @@ const SingleCoinInfo = ({ coin }) => {
           >
             <FaTwitter size={30} />
           </a>
+
           <a
             href={coin?.links?.official_forum_url[0]}
             target="_blank"

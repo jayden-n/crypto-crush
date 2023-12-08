@@ -8,7 +8,7 @@
   @apply bg-primary text-primary;
 }
 .rounded-div {
-  @apply mx-auto w-full max-w-[1140px] rounded-2xl border-b border-t border-secondary bg-primary px-2 shadow-xl;
+  @apply mx-auto w-full max-w-[1140px] rounded-2xl border-b border-t border-secondary bg-primary px-6 shadow-xl;
 }
 
 /* ================== DARK THEME ================== */
@@ -17,11 +17,13 @@
   --color-bg-secondary: #283141;
   --color-bg-thirdary: #525252;
   --color-text-primary: #f9f4da;
+  --color-text-main: #171717;
   --color-text-secondary: #e2e8f0;
   --color-text-thirdary: #fcba29;
-  --color-text-accent: #81e6d9;
+  --color-text-accent: #fcba29;
   --color-bg-input: #4a5361;
   --color-bg-button: #fcba29;
+  --color-border-button: #fcba29;
 }
 
 /*  ================== LIGHT THEME ================== */
@@ -29,8 +31,10 @@
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #edf2f7;
   --color-text-primary: #2d3748;
+  --color-text-main: #ffffff;
   --color-text-secondary: #4a5568;
   --color-text-accent: #8e44af;
   --color-bg-input: #edf2f7;
   --color-bg-button: #8e44af;
+  --color-border-button: #8e44af;
 }

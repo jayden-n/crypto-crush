@@ -3,6 +3,8 @@ import { AiOutlineStar } from "react-icons/ai";
 import { Sparklines, SparklinesLine, SparklinesSpots } from "react-sparklines";
 import { ThemeContext } from "../context/ThemeContext";
 import { useContext } from "react";
+import { PiTrendDownBold } from "react-icons/pi";
+import { PiTrendUpBold } from "react-icons/pi";
 
 const CoinItem = ({ coin }) => {
   const { theme } = useContext(ThemeContext);
@@ -11,7 +13,7 @@ const CoinItem = ({ coin }) => {
   return (
     <tr className="h-[78px] overflow-hidden border-b ">
       <td>
-        <AiOutlineStar />
+        <AiOutlineStar size={15} />
       </td>
 
       {/* Coin Ranking */}
@@ -41,13 +43,15 @@ const CoinItem = ({ coin }) => {
       </td>
 
       {/* 24H Price Change */}
-      <td>
+      <td className="px-4">
         {coin?.price_change_percentage_24h > 0 ? (
-          <p className="rounded-full border bg-green-100 text-green-500">
+          <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
+            <PiTrendUpBold className="mr-2 mt-0.5" size={15} />
             {coin?.price_change_percentage_24h.toFixed(2)}%
           </p>
         ) : (
-          <p className="rounded-full border bg-red-100 text-red-500">
+          <p className="flex items-center justify-center rounded-full border bg-red-100 text-red-500">
+            <PiTrendDownBold className="mr-2" size={15} />
             {coin?.price_change_percentage_24h.toFixed(2)}%
           </p>
         )}

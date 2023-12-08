@@ -1,63 +1,72 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import CoinItem from "./CoinItem";
+import { debounce } from "lodash";
 
-/* eslint-disable react/prop-types */
 const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState("");
+  const [filteredCoins, setFilteredCoins] = useState(coins);
+
+  const delayedSearch = debounce((text) => {
+    // filtered coins
+    const filtered = coins.filter((coin) =>
+      coin.name.toLowerCase().includes(text.toLowerCase()),
+    );
+    setFilteredCoins(filtered);
+  }, 400);
 
   const handleSearchText = (e) => {
-    setSearchText(e.target.value);
+    const inputText = e.target.value.trim();
+    // debounce in action
+    delayedSearch(inputText);
+
+    // for displaying when users type a non-existed coin
+    setSearchText(inputText);
   };
 
   return (
-    // Searching Coins
     <div className="rounded-div my-4">
       <div className="flex flex-col justify-between pb-6 pt-4 text-center md:flex-row md:text-right">
-        <h1 className="my-2 text-2xl font-bold">Search Crypto</h1>
+        <h1 className="my-2 text-xl font-bold">Search Crypto</h1>
         <form>
           <input
             onChange={handleSearchText}
             type="text"
             placeholder="Search a coin..."
-            className="w-full rounded-2xl border border-input bg-primary px-4 py-2 shadow-xl"
+            className="w-full rounded-2xl border border-input bg-thirdary px-4 py-2 shadow-xl"
           />
         </form>
       </div>
 
-      {/* Header Table */}
-      <table className="w-full border-collapse text-center">
-        <thead>
-          <tr className="border-b">
-            <th></th>
-            <th className="px-4">#</th>
-            <th className="text-left">Coin</th>
-            <th>Symbol</th>
-            <th>Price</th>
-            <th>24h</th>
-            <th className="hidden md:table-cell">24h Volume</th>
-            <th className="hidden sm:table-cell">Market</th>
-            <th>Last 7 Days</th>
-          </tr>
-        </thead>
+      {filteredCoins.length === 0 ? (
+        <div className="text-center">
+          <p className="mb-14 text-2xl font-bold text-red-500">
+            No coin was found for: &quot;{searchText}&quot; :(
+          </p>
+        </div>
+      ) : (
+        <table className="w-full border-collapse text-center text-sm">
+          <thead>
+            <tr className="h-[50px] border-b">
+              <th></th>
+              <th className="px-4">#</th>
+              <th className="text-left">Coin</th>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>24h</th>
+              <th className="mr-2 hidden md:table-cell">24h Volume</th>
+              <th className="hidden sm:table-cell">Market</th>
+              <th>Last 7 Days</th>
+            </tr>
+          </thead>
 
-        {/* Coins Info Table */}
-        <tbody>
-          {coins
-            .filter((value) => {
-              /* filtering coins by lowercase names */
-              if (searchText === "") {
-                return value;
-              } else if (
-                value.name.toLowerCase().includes(searchText.toLowerCase())
-              ) {
-                return value;
-              }
-            })
-            .map((coin) => (
+          <tbody>
+            {filteredCoins.map((coin) => (
               <CoinItem coin={coin} key={coin.id} />
             ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineStar } from "react-icons/ai";
 import { Sparklines, SparklinesLine, SparklinesSpots } from "react-sparklines";
+import { ThemeContext } from "../context/ThemeContext";
+import { useContext } from "react";
 
 const CoinItem = ({ coin }) => {
+  const { theme } = useContext(ThemeContext);
+  const fillColor = theme === "dark" ? "#fcba29" : "#8e44af";
+
   return (
-    <tr className="h-[80px] overflow-hidden border-b">
+    <tr className="h-[78px] overflow-hidden border-b ">
       <td>
         <AiOutlineStar />
       </td>
@@ -16,7 +21,7 @@ const CoinItem = ({ coin }) => {
       <td>
         <div className="flex items-center">
           <img
-            className="mr-2 w-6 rounded-full"
+            className="mr-3 w-11 rounded-full"
             src={coin.image}
             alt={coin.id}
           />
@@ -38,11 +43,11 @@ const CoinItem = ({ coin }) => {
       {/* 24H Price Change */}
       <td>
         {coin?.price_change_percentage_24h > 0 ? (
-          <p className="text-green-500">
+          <p className="rounded-full border bg-green-100 text-green-500">
             {coin?.price_change_percentage_24h.toFixed(2)}%
           </p>
         ) : (
-          <p className="text-red-500">
+          <p className="rounded-full border bg-red-100 text-red-500">
             {coin?.price_change_percentage_24h.toFixed(2)}%
           </p>
         )}
@@ -65,7 +70,7 @@ const CoinItem = ({ coin }) => {
           <SparklinesLine
             style={{
               stroke: "none",
-              fill: "#8e44af",
+              fill: fillColor,
               fillOpacity: "1",
             }}
           />

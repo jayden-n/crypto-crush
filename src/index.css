@@ -8,13 +8,13 @@
   @apply bg-primary text-primary;
 }
 .rounded-div {
-  @apply mx-auto w-full max-w-[1140px] rounded-2xl border-b border-t border-secondary bg-primary px-6 shadow-xl;
+  @apply mx-auto w-full  max-w-[1140px] rounded-2xl border-b border-t border-secondary bg-primary px-6 shadow-xl;
 }
 
 /* ================== DARK THEME ================== */
 .dark {
   --color-bg-primary: #171717;
-  --color-bg-secondary: #283141;
+  --color-bg-secondary: #525252;
   --color-bg-thirdary: #525252;
   --color-text-primary: #f9f4da;
   --color-text-main: #171717;
@@ -29,7 +29,7 @@
 /*  ================== LIGHT THEME ================== */
 .light {
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #edf2f7;
+  --color-bg-secondary: #f8fafc;
   --color-text-primary: #2d3748;
   --color-text-main: #ffffff;
   --color-text-secondary: #4a5568;

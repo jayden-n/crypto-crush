@@ -7,7 +7,7 @@ const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState("");
   const [filteredCoins, setFilteredCoins] = useState(coins);
 
-  const delayedSearch = debounce((text) => {
+  const handleDelayedSearch = debounce((text) => {
     // filtered coins
     const filtered = coins.filter((coin) =>
       coin.name.toLowerCase().includes(text.toLowerCase()),
@@ -18,30 +18,21 @@ const CoinSearch = ({ coins }) => {
   const handleSearchText = (e) => {
     const inputText = e.target.value.trim();
     // debounce in action
-    delayedSearch(inputText);
+    handleDelayedSearch(inputText);
 
     // for displaying when users type a non-existed coin
     setSearchText(inputText);
   };
 
-  return (
-    <div className="rounded-div my-4">
-      <div className="flex flex-col justify-between pb-6 pt-4 text-center md:flex-row md:text-right">
-        <h1 className="my-2 text-xl font-bold">Search Crypto</h1>
-        <form>
-          <input
-            onChange={handleSearchText}
-            type="text"
-            placeholder="Search a coin..."
-            className="w-full rounded-2xl border border-input bg-thirdary px-4 py-2 shadow-xl"
-          />
-        </form>
-      </div>
-
-      {filteredCoins.length === 0 ? (
+  const handleIsLimitedData =
+    coins.length > 0 ? (
+      filteredCoins.length === 0 ? (
         <div className="text-center">
-          <p className="mb-14 text-2xl font-bold text-red-500">
-            No coin was found for: &quot;{searchText}&quot; :(
+          <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+            Uh oh!
+          </h1>
+          <p className="mb-12 mt-6 text-base leading-7 text-red-500">
+            No coin was found for: &quot;{searchText}&quot;
           </p>
         </div>
       ) : (
@@ -66,7 +57,34 @@ const CoinSearch = ({ coins }) => {
             ))}
           </tbody>
         </table>
-      )}
+      )
+    ) : (
+      <div className="text-center">
+        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+          Something went wrong!
+        </h1>
+        <p className="mb-12 mt-6 text-base leading-7 text-red-500">
+          Due to using a free API, the data is limited to 10-30 calls/minute.
+          Please try again later.
+        </p>
+      </div>
+    );
+
+  return (
+    <div className="rounded-div my-4">
+      <div className="flex flex-col justify-between pb-6 pt-4 text-center md:flex-row md:text-right">
+        <h1 className="my-2 text-xl font-bold">Search Crypto</h1>
+        <form>
+          <input
+            onChange={handleSearchText}
+            type="text"
+            placeholder="Search a coin..."
+            className="w-full rounded-2xl border border-input bg-thirdary px-4 py-2 shadow-xl"
+          />
+        </form>
+      </div>
+
+      {handleIsLimitedData}
     </div>
   );
 };

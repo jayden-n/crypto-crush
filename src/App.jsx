@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage";
 import AccountPage from "./pages/AccountPage";
 import { useEffect, useState } from "react";
 import { fetchCoinsApi } from "./services/api/fetchCoinsApi";
+import CoinPage from "./pages/CoinPage";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -42,6 +43,10 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/account" element={<AccountPage />} />
+
+            <Route path="/coin/:coinId" element={<CoinPage />}>
+              <Route />
+            </Route>
           </Routes>
         </>
       )}

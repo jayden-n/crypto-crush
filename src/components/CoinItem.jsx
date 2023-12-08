@@ -5,11 +5,11 @@ import { ThemeContext } from "../context/ThemeContext";
 import { useContext } from "react";
 
 const CoinItem = ({ coin }) => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const fillColor = theme === "dark" ? "#fcba29" : "#8e44af";
 
   return (
-    <tr className="h-[80px] overflow-hidden border-b">
+    <tr className="h-[78px] overflow-hidden border-b ">
       <td>
         <AiOutlineStar />
       </td>
@@ -21,7 +21,7 @@ const CoinItem = ({ coin }) => {
       <td>
         <div className="flex items-center">
           <img
-            className="mr-4 w-10 rounded-full"
+            className="mr-3 w-11 rounded-full"
             src={coin.image}
             alt={coin.id}
           />

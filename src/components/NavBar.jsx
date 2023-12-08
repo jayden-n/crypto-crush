@@ -26,7 +26,7 @@ const NavBar = () => {
       </div>
 
       <div className="hidden md:block">
-        <Link to="/login" className="hover:text-thirdary p-4">
+        <Link to="/login" className="p-4 hover:text-thirdary">
           Log In
         </Link>
         <Link

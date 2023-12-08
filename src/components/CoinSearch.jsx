@@ -19,15 +19,15 @@ const CoinSearch = ({ coins }) => {
             onChange={handleSearchText}
             type="text"
             placeholder="Search a coin..."
-            className="bg-thirdary w-full rounded-2xl border border-input px-4 py-2 shadow-xl"
+            className="w-full rounded-2xl border border-input bg-thirdary px-4 py-2 shadow-xl"
           />
         </form>
       </div>
 
       {/* Header Table */}
-      <table className="w-full border-collapse text-center">
+      <table className=" w-full border-collapse text-center text-sm">
         <thead>
-          <tr className="border-b">
+          <tr className="h-[50px] border-b">
             <th></th>
             <th className=" px-4">#</th>
             <th className=" text-left">Coin</th>

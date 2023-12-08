@@ -13,7 +13,7 @@ const CoinItem = ({ coin }) => {
   return (
     <tr className="h-[78px] overflow-hidden border-b ">
       <td>
-        <AiOutlineStar />
+        <AiOutlineStar size={15} />
       </td>
 
       {/* Coin Ranking */}

@@ -13,12 +13,15 @@ const CoinSearch = ({ coins }) => {
       coin.name.toLowerCase().includes(text.toLowerCase()),
     );
     setFilteredCoins(filtered);
-  }, 500);
+  }, 400);
 
   const handleSearchText = (e) => {
     const inputText = e.target.value.trim();
-    setSearchText(inputText);
+    // debounce in action
     delayedSearch(inputText);
+
+    // for displaying when users type a non-existed coin
+    setSearchText(inputText);
   };
 
   return (
@@ -35,27 +38,35 @@ const CoinSearch = ({ coins }) => {
         </form>
       </div>
 
-      <table className="w-full border-collapse text-center text-sm">
-        <thead>
-          <tr className="h-[50px] border-b">
-            <th></th>
-            <th className="px-4">#</th>
-            <th className="text-left">Coin</th>
-            <th>Symbol</th>
-            <th>Price</th>
-            <th>24h</th>
-            <th className="mr-2 hidden md:table-cell">24h Volume</th>
-            <th className="hidden sm:table-cell">Market</th>
-            <th>Last 7 Days</th>
-          </tr>
-        </thead>
+      {filteredCoins.length === 0 ? (
+        <div className="text-center">
+          <p className="mb-14 text-2xl font-bold text-red-500">
+            No coin was found for: &quot;{searchText}&quot; :(
+          </p>
+        </div>
+      ) : (
+        <table className="w-full border-collapse text-center text-sm">
+          <thead>
+            <tr className="h-[50px] border-b">
+              <th></th>
+              <th className="px-4">#</th>
+              <th className="text-left">Coin</th>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>24h</th>
+              <th className="mr-2 hidden md:table-cell">24h Volume</th>
+              <th className="hidden sm:table-cell">Market</th>
+              <th>Last 7 Days</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {filteredCoins.map((coin) => (
-            <CoinItem coin={coin} key={coin.id} />
-          ))}
-        </tbody>
-      </table>
+          <tbody>
+            {filteredCoins.map((coin) => (
+              <CoinItem coin={coin} key={coin.id} />
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

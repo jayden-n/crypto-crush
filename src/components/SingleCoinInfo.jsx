@@ -1,15 +1,11 @@
-import { useContext } from "react";
 import { FaGithub, FaReddit, FaTwitter } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { Sparklines, SparklinesLine } from "react-sparklines";
-import { ThemeContext } from "../context/ThemeContext";
+
 import { PiTrendDownBold, PiTrendUpBold } from "react-icons/pi";
 
 /* eslint-disable react/prop-types */
 const SingleCoinInfo = ({ coin }) => {
-  const { theme } = useContext(ThemeContext);
-  const fillColor = theme === "dark" ? "#fcba29" : "#8e44af";
-
   return (
     <div className="grid gap-12 md:grid-cols-2">
       <div>
@@ -120,7 +116,9 @@ const SingleCoinInfo = ({ coin }) => {
                 className={`text-xl font-bold ${
                   coin.liquidity_score > 75
                     ? "text-green-500"
-                    : "text-yellow-500"
+                    : coin.liquidity_score >= 50
+                      ? "text-yellow-500"
+                      : "text-red-500"
                 }`}
               >
                 {coin?.liquidity_score.toFixed(2)}

@@ -94,7 +94,8 @@ const Footer = () => {
           className="font-bold hover:underline"
         >
           Coin Gecko
-        </a>
+        </a>{" "}
+        {" <3"}
       </p>
     </div>
   );

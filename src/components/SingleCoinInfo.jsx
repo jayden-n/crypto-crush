@@ -95,10 +95,10 @@ const SingleCoinInfo = ({ coin }) => {
 
       {/* market stats */}
       <div>
-        <p className="text-2xl font-bold">Market Stats</p>
+        <p className="text-2xl font-bold">{coin?.name} Stats</p>
         <div className="flex items-center justify-between py-4">
           <div>
-            <p className="text-sm text-gray-500">Market Rank</p>#
+            <p className="text-sm  text-gray-500">Market Rank</p>#
             {coin?.market_cap_rank}
           </div>
           <div>
@@ -130,7 +130,9 @@ const SingleCoinInfo = ({ coin }) => {
         {/* price change in 2 weeks */}
         <div className="flex justify-between py-4">
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (24h)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(24h)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_24h > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -146,7 +148,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (7d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(7d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_7d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -162,7 +166,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (14d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(14d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_14d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -182,7 +188,9 @@ const SingleCoinInfo = ({ coin }) => {
         {/* price change in long term */}
         <div className="flex justify-between py-4">
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (30d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(30d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_30d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -198,7 +206,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (60d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(60d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_60d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -214,7 +224,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (1y)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(1y)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_1y > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">

@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 
 const CoinItem = ({ coin }) => {
   return (
-    <tr className="h-[78px] overflow-hidden border-b duration-75 ease-in hover:bg-secondary ">
+    // NOTE: border-slate-400 add this
+    <tr className="h-[78px] overflow-hidden border-b  duration-75 ease-in hover:bg-secondary ">
       <td>
         <AiOutlineStar size={18} />
       </td>

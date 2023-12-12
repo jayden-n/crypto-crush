@@ -22,7 +22,12 @@ const TrendingCoins = ({ coins }) => {
 
   return (
     <div className="rounded-div my-12 py-8 text-sm text-primary">
-      <h1 className="py-4 text-2xl font-bold">Trending coins</h1>
+      <h1 className="mb-8 py-4 text-center text-2xl font-semibold italic sm:text-left">
+        <span className="relative mx-1.5 inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:bg-button">
+          <span className="relative text-white">Trending</span>
+        </span>
+        coins
+      </h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* just getting 6 coins on trending */}
         {trendingCoins.slice(0, 6).map((coin, index) => (

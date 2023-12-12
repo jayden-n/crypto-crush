@@ -74,11 +74,7 @@ const CoinSearch = ({ coins }) => {
     <div className="rounded-div my-4">
       <div className="flex flex-col items-center justify-between pb-8 pt-4 md:flex-row md:text-right">
         <h1 className="mb-8 mt-4 py-2 text-2xl font-semibold italic md:mb-0 md:mt-0">
-          Where
-          <span className="relative mx-1.5 inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:bg-button">
-            <span className="relative text-white">passion</span>
-          </span>
-          meets profit.
+          Where passion meets profit.
         </h1>
         <form>
           <label className="relative block">

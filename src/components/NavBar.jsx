@@ -13,7 +13,7 @@ const NavBar = () => {
 
   return (
     // <nav className="rounded-div flex h-20 items-center justify-between font-bold duration-300 ease-in">
-    <nav className="relative mx-auto flex h-20 w-full max-w-[1140px] items-center justify-between border-b-[1px] bg-primary p-4 font-bold">
+    <nav className="h-21 relative mx-auto flex w-full max-w-[1140px] items-center justify-between border-b-[1px] bg-primary p-4 font-bold">
       {/* Desktop Menu */}
       <Link to="/">
         <div className="flex items-center">
@@ -22,22 +22,26 @@ const NavBar = () => {
         </div>
       </Link>
 
-      <div className="hidden md:block">
-        <ThemeToggle />
-      </div>
+      <div className="flex items-center gap-2">
+        <div className="hidden md:block">
+          <ThemeToggle />
+        </div>
 
-      <div className="hidden md:block">
-        <Link to="/login" className="whitespace-nowrap p-4 hover:text-thirdary">
-          Log In
-        </Link>
-        <Link
-          to="/signup"
-          className="whitespace-nowrap rounded-md bg-button px-4 py-2 font-medium text-main"
-        >
-          Sign Up
-        </Link>
+        <div className="hidden md:block">
+          <Link
+            to="/login"
+            className="whitespace-nowrap p-4 hover:text-thirdary"
+          >
+            Log In
+          </Link>
+          <Link
+            to="/signup"
+            className="whitespace-nowrap rounded-md bg-button px-4 py-2 font-medium text-main"
+          >
+            Sign Up
+          </Link>
+        </div>
       </div>
-
       {/* Menu Hamburger */}
       <div
         onClick={handleIsMobileScreen}

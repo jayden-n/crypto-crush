@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchTrendingCoinsApi } from "../services/api/fetchTrendingCoinsApi";
 import { Link } from "react-router-dom";
 
-const TrendingCoins = ({ coins }) => {
+const TrendingCoins = () => {
   const [trendingCoins, setTrendingCoins] = useState([]);
 
   const fetchTrendingCoins = async () => {
@@ -20,18 +20,18 @@ const TrendingCoins = ({ coins }) => {
     fetchTrendingCoins();
   }, []);
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <div className="rounded-div my-12 py-8 text-sm text-primary">
-      <h1 className="mb-8 py-4 text-center text-2xl font-semibold italic sm:text-left">
-        <span className="relative mx-1.5 inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:bg-button">
-          <span className="relative text-white">Trending</span>
-        </span>
-        coins
+      <h1 className="mb-8 py-4 text-center text-2xl font-semibold italic text-accent sm:text-left">
+        Trending coins
       </h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* just getting 6 coins on trending */}
         {trendingCoins.slice(0, 6).map((coin, index) => (
-          <div key={index}>
+          <div key={index} onClick={scrollToTop}>
             <Link to={`/coin/${coin?.item?.id}`}>
               <div className="rounded-div flex justify-between border p-5 duration-300 ease-in-out hover:scale-105">
                 <div className="flex w-full items-center justify-between ">

@@ -7,6 +7,9 @@ import { PiTrendUpBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 const CoinItem = ({ coin }) => {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     // NOTE: border-slate-400 add this
     <tr className="h-[78px] overflow-hidden border-b  duration-75 ease-in hover:bg-secondary ">
@@ -20,7 +23,7 @@ const CoinItem = ({ coin }) => {
       {/* Coins Name */}
       <td>
         {/* dynamic link */}
-        <Link to={`/coin/${coin?.id}`}>
+        <Link onClick={scrollToTop} to={`/coin/${coin?.id}`}>
           <div className="flex items-center">
             <img
               className="mr-2 w-6 rounded-full"
@@ -82,7 +85,7 @@ const CoinItem = ({ coin }) => {
             }}
           />
         </Sparklines> */}
-        <Link to={`/coin/${coin?.id}`}>
+        <Link onClick={scrollToTop} to={`/coin/${coin?.id}`}>
           <Sparklines data={coin.sparkline_in_7d.price}>
             <SparklinesLine
               style={{

@@ -25,6 +25,21 @@ const CoinPage = () => {
     fetchCoinsId();
   }, []);
 
+  // ===================== description shorter =====================
+  function truncateDescription(description, maxLength, homepageLink) {
+    if (description.length > maxLength) {
+      // Find the last space before the specified character limit
+      const lastSpaceIndex = description.lastIndexOf(" ", maxLength);
+
+      // Truncate the description and add "..." and "Learn more" link
+      const truncatedText = description.slice(0, lastSpaceIndex) + "...";
+      const learnMoreLink = `<a class="font-bold underline" href="${homepageLink}">(Learn more)</a>`;
+
+      return truncatedText + " " + learnMoreLink;
+    }
+    return description;
+  }
+
   return (
     <div className="rounded-div my-12 py-8">
       <div className=" grid items-center gap-12 py-6 md:grid-cols-2">
@@ -73,13 +88,18 @@ const CoinPage = () => {
           <IoInformationCircleOutline size={35} className="mr-1" />
           About {coin?.name}
         </p>
-        {/* set to normal looking paragraph from html code*/}
-        {/* DOMPurify */}
         <p
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-              coin?.description ? coin?.description.en : "",
-            ),
+            __html:
+              coin?.description && coin?.description.en
+                ? DOMPurify.sanitize(
+                    truncateDescription(
+                      coin?.description.en,
+                      400,
+                      coin?.links?.homepage[0],
+                    ),
+                  )
+                : "(404 Not Found)",
           }}
           className="leading-relaxed"
         ></p>

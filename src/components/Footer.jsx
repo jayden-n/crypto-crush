@@ -1,5 +1,5 @@
 import { AiOutlineInstagram } from "react-icons/ai";
-import { FaFacebookF, FaGithub, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaTwitter, FaTiktok } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
 
 const Footer = () => {
@@ -9,13 +9,11 @@ const Footer = () => {
   return (
     <div className="rounded-div mt-8 pt-8 text-primary">
       <div className="grid md:grid-cols-2">
-        <div className="flex w-full justify-evenly  md:max-w-[300px]">
+        <div className="flex w-full justify-evenly md:max-w-[300px]">
           <div>
             <h2 className="mb-2 text-xl font-bold">Support</h2>
             <ul>
-              <li className="cursor-not-allowed py-2 text-sm disabled:pointer-events-none">
-                About Us
-              </li>
+              <li className="cursor-not-allowed py-2 text-sm">About Us</li>
               <li className="py-2 text-sm">
                 <a
                   href="https://www.forbes.com/advisor/investing/cryptocurrency/"
@@ -66,7 +64,7 @@ const Footer = () => {
               <div className="py-4">
                 <form>
                   <input
-                    className="mr-2 w-full rounded-2xl border border-input bg-thirdary p-2 shadow-xl md:w-auto"
+                    className="mr-2 w-full cursor-not-allowed rounded-2xl border border-input bg-thirdary p-2 shadow-xl md:w-auto"
                     type="email"
                     placeholder="Enter Your Email"
                   />
@@ -75,7 +73,7 @@ const Footer = () => {
                   </button>
                 </form>
               </div>
-              <div className="flex justify-between px-4 pb-2 pt-4 text-accent">
+              <div className="flex justify-between px-4 pb-2 pt-4 text-accent ">
                 <AiOutlineInstagram className="cursor-not-allowed" />
                 <FaFacebookF className="cursor-not-allowed" />
                 <FaTwitter className="cursor-not-allowed" />

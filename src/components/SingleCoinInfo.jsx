@@ -55,7 +55,7 @@ const SingleCoinInfo = ({ coin }) => {
           {/* Categories */}
           <div className="py-2">
             <p className="text-sm text-gray-500">Categories</p>
-            {coin?.categories ? coin.categories.join(", ") : null}
+            {coin?.categories ? coin.categories.slice(0, 3).join(", ") : null}
           </div>
 
           {/* Genesis (date) */}
@@ -109,21 +109,26 @@ const SingleCoinInfo = ({ coin }) => {
               <p>(Not Exposed)</p>
             )}
           </div>
+
+          {/* Trust score */}
           <div className="flex flex-col items-center">
             <p className="text-sm text-gray-500">Trust Score</p>
             {coin?.tickers ? (
               <p
                 className={`text-xl font-bold ${
-                  coin.liquidity_score > 75
+                  coin.tickers[0].trust_score === "green"
                     ? "text-green-500"
-                    : coin.liquidity_score >= 50
+                    : coin.tickers[0].trust_score === "yellow"
                       ? "text-yellow-500"
                       : "text-red-500"
                 }`}
               >
-                {coin?.liquidity_score.toFixed(2)}
+                {coin.tickers[0].trust_score.charAt(0).toUpperCase() +
+                  coin.tickers[0].trust_score.slice(1)}
               </p>
-            ) : null}
+            ) : (
+              <p>(Not Exposed)</p>
+            )}
           </div>
         </div>
 

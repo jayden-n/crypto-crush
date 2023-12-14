@@ -24,52 +24,6 @@ const CoinSearch = ({ coins }) => {
     setSearchText(inputText);
   };
 
-  const handleIsLimitedData =
-    coins.length > 0 ? (
-      filteredCoins.length === 0 ? (
-        <div className="text-center">
-          <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-            Uh oh!
-          </h1>
-          <p className="mb-12 mt-6 text-xl text-accent">
-            No coin was found for: &quot;{searchText}&quot;
-          </p>
-        </div>
-      ) : (
-        <table className="w-full border-collapse text-center text-sm">
-          <thead className="text-xs">
-            <tr className="h-[40px] border-b">
-              <th></th>
-              <th className="px-4">#</th>
-              <th className="text-left">Coin</th>
-              <th>Symbol</th>
-              <th>Price</th>
-              <th>24h</th>
-              <th className="mr-2 hidden md:table-cell">24h Volume</th>
-              <th className="hidden sm:table-cell">Market</th>
-              <th>Last 7 Days</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredCoins.map((coin) => (
-              <CoinItem coin={coin} key={coin.id} />
-            ))}
-          </tbody>
-        </table>
-      )
-    ) : (
-      <div className="text-center">
-        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
-          Something went wrong!
-        </h1>
-        <p className="mb-12 mt-6 text-xl leading-7 text-accent">
-          Due to using a free API, the data is limited to 10-30 calls/minute.
-          Please try again later.
-        </p>
-      </div>
-    );
-
   return (
     <div className="rounded-div my-4">
       <div className="flex flex-col items-center justify-between pb-8 pt-4 md:flex-row md:text-right">
@@ -103,7 +57,50 @@ const CoinSearch = ({ coins }) => {
         </form>
       </div>
 
-      {handleIsLimitedData}
+      {coins.length > 0 ? (
+        filteredCoins.length === 0 ? (
+          <div className="text-center">
+            <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+              Uh oh!
+            </h1>
+            <p className="mb-12 mt-6 text-xl text-accent">
+              No coin was found for: &quot;{searchText}&quot;
+            </p>
+          </div>
+        ) : (
+          <table className="w-full border-collapse text-center text-sm">
+            <thead className="text-xs">
+              <tr className="h-[40px] border-b">
+                <th></th>
+                <th className="px-4">#</th>
+                <th className="text-left">Coin</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>24h</th>
+                <th className="mr-2 hidden md:table-cell">24h Volume</th>
+                <th className="hidden sm:table-cell">Market</th>
+                <th>Last 7 Days</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {filteredCoins.map((coin) => (
+                <CoinItem coin={coin} key={coin.id} />
+              ))}
+            </tbody>
+          </table>
+        )
+      ) : (
+        <div className="text-center">
+          <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+            Something went wrong!
+          </h1>
+          <p className="mb-12 mt-6 text-xl leading-7 text-accent">
+            Due to using a free API, the data is limited to 10-30 calls/minute.
+            Please try again later.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

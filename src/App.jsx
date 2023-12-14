@@ -8,6 +8,7 @@ import AccountPage from "./pages/AccountPage";
 import { useEffect, useState } from "react";
 import { fetchCoinsApi } from "./services/api/fetchCoinsApi";
 import CoinPage from "./pages/CoinPage";
+import Footer from "./components/Footer";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -48,6 +49,7 @@ function App() {
               <Route />
             </Route>
           </Routes>
+          <Footer />
         </>
       )}
     </ThemeProvider>

@@ -1,15 +1,11 @@
-import { useContext } from "react";
 import { FaGithub, FaReddit, FaTwitter } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { Sparklines, SparklinesLine } from "react-sparklines";
-import { ThemeContext } from "../context/ThemeContext";
+
 import { PiTrendDownBold, PiTrendUpBold } from "react-icons/pi";
 
 /* eslint-disable react/prop-types */
 const SingleCoinInfo = ({ coin }) => {
-  const { theme } = useContext(ThemeContext);
-  const fillColor = theme === "dark" ? "#fcba29" : "#8e44af";
-
   return (
     <div className="grid gap-12 md:grid-cols-2">
       <div>
@@ -59,7 +55,7 @@ const SingleCoinInfo = ({ coin }) => {
           {/* Categories */}
           <div className="py-2">
             <p className="text-sm text-gray-500">Categories</p>
-            {coin?.categories ? coin.categories.join(", ") : null}
+            {coin?.categories ? coin.categories.slice(0, 3).join(", ") : null}
           </div>
 
           {/* Genesis (date) */}
@@ -99,10 +95,10 @@ const SingleCoinInfo = ({ coin }) => {
 
       {/* market stats */}
       <div>
-        <p className="text-2xl font-bold">Market Stats</p>
+        <p className="text-2xl font-bold">{coin?.name} Stats</p>
         <div className="flex items-center justify-between py-4">
           <div>
-            <p className="text-sm text-gray-500">Market Rank</p>#
+            <p className="text-sm  text-gray-500">Market Rank</p>#
             {coin?.market_cap_rank}
           </div>
           <div>
@@ -113,26 +109,35 @@ const SingleCoinInfo = ({ coin }) => {
               <p>(Not Exposed)</p>
             )}
           </div>
+
+          {/* Trust score */}
           <div className="flex flex-col items-center">
             <p className="text-sm text-gray-500">Trust Score</p>
             {coin?.tickers ? (
               <p
                 className={`text-xl font-bold ${
-                  coin.liquidity_score > 75
+                  coin.tickers[0].trust_score === "green"
                     ? "text-green-500"
-                    : "text-yellow-500"
+                    : coin.tickers[0].trust_score === "yellow"
+                      ? "text-yellow-500"
+                      : "text-red-500"
                 }`}
               >
-                {coin?.liquidity_score.toFixed(2)}
+                {coin.tickers[0].trust_score.charAt(0).toUpperCase() +
+                  coin.tickers[0].trust_score.slice(1)}
               </p>
-            ) : null}
+            ) : (
+              <p>(Not Exposed)</p>
+            )}
           </div>
         </div>
 
         {/* price change in 2 weeks */}
         <div className="flex justify-between py-4">
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (24h)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(24h)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_24h > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -148,7 +153,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (7d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(7d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_7d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -164,7 +171,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (14d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(14d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_14d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -184,7 +193,9 @@ const SingleCoinInfo = ({ coin }) => {
         {/* price change in long term */}
         <div className="flex justify-between py-4">
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (30d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(30d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_30d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -200,7 +211,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (60d)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(60d)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_60d > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">
@@ -216,7 +229,9 @@ const SingleCoinInfo = ({ coin }) => {
             ) : null}
           </div>
           <div>
-            <p className="mb-2 text-sm text-gray-500">Price Change (1y)</p>
+            <p className="mb-2 text-sm text-gray-500">
+              Price Change <span className="font-semibold">(1y)</span>
+            </p>
             {coin?.market_data ? (
               coin?.market_data?.price_change_percentage_1y > 0 ? (
                 <p className="flex items-center justify-center rounded-full border bg-green-100 text-green-500">

@@ -1,8 +1,10 @@
 import { FiLogIn } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export const RoundedSlideButton = () => {
   return (
-    <button
+    <Link
+      to="/signup"
       className={`
           relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] 
           border-accent px-4 py-2 font-semibold
@@ -22,6 +24,6 @@ export const RoundedSlideButton = () => {
     >
       <FiLogIn />
       <span>Try for free</span>
-    </button>
+    </Link>
   );
 };

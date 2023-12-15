@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { fetchCoinsApi } from "./services/api/fetchCoinsApi";
 import CoinPage from "./pages/CoinPage";
 import Footer from "./components/Footer";
+import Loader from "./components/loader/Loader";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -21,7 +22,7 @@ function App() {
       const fetchCoinsData = await fetchCoinsApi();
       setCoins(fetchCoinsData);
 
-      setIsLoading(false);
+      setIsLoading(true);
     } catch (error) {
       console.error("Error fetching coins: ", error.message);
       setIsLoading(false);
@@ -35,7 +36,7 @@ function App() {
   return (
     <ThemeProvider>
       {isLoading ? (
-        "Loading..."
+        <Loader />
       ) : (
         <>
           <NavBar />

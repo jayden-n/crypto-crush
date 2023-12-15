@@ -2,6 +2,7 @@
 import { useState } from "react";
 import CoinItem from "./CoinItem";
 import { debounce } from "lodash";
+import NotFoundLoader from "./loader/NotFoundLoader";
 
 const CoinSearch = ({ coins }) => {
   const [searchText, setSearchText] = useState("");
@@ -52,6 +53,7 @@ const CoinSearch = ({ coins }) => {
               placeholder="Search for a coin..."
               type="text"
               name="search"
+              disabled={coins.length === 0}
             />
           </label>
         </form>
@@ -93,6 +95,7 @@ const CoinSearch = ({ coins }) => {
       ) : (
         <div className="text-center">
           <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+            <NotFoundLoader />
             Something went wrong!
           </h1>
           <p className="mb-12 mt-6 text-xl leading-7 text-accent">

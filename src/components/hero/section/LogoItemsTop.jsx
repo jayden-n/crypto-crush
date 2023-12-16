@@ -1,16 +1,5 @@
 import { LogoItem } from "./LogoItem";
-import {
-  SiNike,
-  Si3M,
-  SiAbstract,
-  SiAdobe,
-  SiAirtable,
-  SiAmazon,
-  SiBox,
-  SiBytedance,
-  SiChase,
-  SiCloudbees,
-} from "react-icons/si";
+
 import { FaCoins } from "react-icons/fa";
 import { PiHandCoinsFill, PiCoins } from "react-icons/pi";
 import { LuCoins } from "react-icons/lu";

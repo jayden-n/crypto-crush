@@ -22,7 +22,7 @@ function App() {
       const fetchCoinsData = await fetchCoinsApi();
       setCoins(fetchCoinsData);
 
-      setIsLoading(true);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching coins: ", error.message);
       setIsLoading(false);

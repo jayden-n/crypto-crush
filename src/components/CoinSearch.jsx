@@ -94,7 +94,7 @@ const CoinSearch = ({ coins }) => {
         )
       ) : (
         <div className="text-center">
-          <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
             <NotFoundLoader />
             Something went wrong!
           </h1>

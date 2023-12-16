@@ -14,7 +14,7 @@ const CoinItem = ({ coin }) => {
     // NOTE: border-slate-400 add this
     <tr className="h-[78px] overflow-hidden border-b  duration-75 ease-in hover:bg-secondary ">
       <td>
-        <AiOutlineStar size={18} />
+        <AiOutlineStar size={18} className="cursor-pointer" />
       </td>
 
       {/* Coin Ranking */}

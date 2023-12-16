@@ -78,13 +78,13 @@ const NavBar = () => {
 
         <div className="flex w-full flex-col p-4">
           <Link to="/login">
-            <button className="my-2 w-full rounded-2xl border border-secondary bg-primary p-3 text-primary shadow-xl">
+            <button className="my-2 w-full rounded-md border border-secondary bg-primary p-3 text-primary shadow-xl">
               Log in
             </button>
           </Link>
 
           <Link to="/signup">
-            <button className="my-2 w-full rounded-2xl bg-button p-3 text-btnText shadow-xl">
+            <button className="my-2 w-full rounded-md bg-button p-3 text-btnText shadow-xl">
               Sign Up
             </button>
           </Link>

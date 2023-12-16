@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="rounded-div mt-8 pt-8 text-primary">
+    <div className="rounded-div  bottom-0 mt-8 pt-8 text-primary">
       <div className="grid md:grid-cols-2">
         <div className="flex w-full justify-evenly md:max-w-[300px]">
           <div>
@@ -62,16 +62,16 @@ const Footer = () => {
                 Sign up for crypto news!
               </p>
               <div className="py-4">
-                <form>
+                <div>
                   <input
-                    className="mr-2 w-full cursor-not-allowed rounded-2xl border border-input bg-thirdary p-2 shadow-xl md:w-auto"
+                    className="mr-2 w-full cursor-not-allowed rounded-md border border-input bg-thirdary p-2 shadow-xl md:w-auto"
                     type="email"
                     placeholder="Enter Your Email"
                   />
-                  <button className="my-2 w-full cursor-not-allowed rounded-2xl bg-button p-2 px-4 font-bold text-btnText shadow-xl hover:shadow-2xl md:w-auto">
+                  <button className="my-2 w-full cursor-not-allowed rounded-md bg-button p-2 px-4 font-bold text-btnText shadow-xl hover:shadow-2xl md:w-auto">
                     Sign Up
                   </button>
-                </form>
+                </div>
               </div>
               <div className="flex justify-between px-4 pb-2 pt-4 text-accent ">
                 <AiOutlineInstagram className="cursor-not-allowed" />

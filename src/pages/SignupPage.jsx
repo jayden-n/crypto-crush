@@ -2,7 +2,7 @@ import { SignUpForm } from "../components/form/SignUpForm";
 
 const SignUpPage = () => {
   return (
-    <section className="grid min-h-[80vh] grid-cols-1">
+    <section className="mt-10 grid grid-cols-1 items-center justify-center">
       <SignUpForm />
     </section>
   );

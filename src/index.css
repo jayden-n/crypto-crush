@@ -10,6 +10,9 @@
 .rounded-div {
   @apply mx-auto w-full max-w-[1140px] rounded-2xl border-b border-t border-secondary bg-primary px-6 shadow-md;
 }
+main {
+  flex: 1; /* This pushes the footer to the bottom */
+}
 
 /* ================== DARK THEME ================== */
 .dark {

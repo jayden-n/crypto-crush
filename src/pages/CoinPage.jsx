@@ -11,7 +11,6 @@ import NotFoundLoader from "../components/loader/NotFoundLoader";
 const CoinPage = () => {
   const [coin, setCoin] = useState([]);
   const [infoLoading, setInfoLoading] = useState(true); // Loader state for SingleCoinInfo
-  const [isLoading, setIsLoading] = useState(true); // Loader state for initial fetch
   const params = useParams();
 
   const fetchCoinsId = async () => {
@@ -22,8 +21,7 @@ const CoinPage = () => {
       console.error(error);
     } finally {
       setTimeout(() => {
-        setInfoLoading(false); // Set SingleCoinInfo loader to false
-        setIsLoading(false); // Set initial loader to false
+        setInfoLoading(false);
       }, 700);
     }
   };

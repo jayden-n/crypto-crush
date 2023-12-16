@@ -39,18 +39,22 @@ function App() {
         <Loader />
       ) : (
         <>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<HomePage coins={coins} />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/account" element={<AccountPage />} />
+          <div className="flex min-h-screen flex-col">
+            <NavBar />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<HomePage coins={coins} />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/account" element={<AccountPage />} />
 
-            <Route path="/coin/:coinId" element={<CoinPage />}>
-              <Route />
-            </Route>
-          </Routes>
-          <Footer />
+                <Route path="/coin/:coinId" element={<CoinPage />}>
+                  <Route />
+                </Route>
+              </Routes>
+            </main>
+            <Footer />
+          </div>
         </>
       )}
     </ThemeProvider>

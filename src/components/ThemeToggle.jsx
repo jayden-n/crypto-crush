@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { BsFillCloudyFill, BsStarFill } from "react-icons/bs";
 import { ThemeContext } from "../context/ThemeContext";
@@ -20,7 +20,10 @@ const ToggleWrapper = () => {
   );
 };
 
-const DarkThemeToggle = ({ mode, setTheme }) => {
+const DarkThemeToggle = React.memo(function DarkThemeToggle({
+  mode,
+  setTheme,
+}) {
   return (
     <button
       onClick={() => setTheme(mode === "dark" ? "light" : "dark")}
@@ -35,14 +38,14 @@ const DarkThemeToggle = ({ mode, setTheme }) => {
       {mode === "dark" && <Stars />}
     </button>
   );
-};
+});
 
-const Thumb = ({ theme }) => {
+const Thumb = React.memo(function Thumb({ theme }) {
   return (
     <motion.div
       layout
       transition={{
-        duration: 0.75,
+        duration: 0.5,
         type: "spring",
       }}
       className="relative h-8 w-8 overflow-hidden rounded-full shadow-lg"
@@ -58,37 +61,39 @@ const Thumb = ({ theme }) => {
       {theme === "dark" && <MoonSpots />}
     </motion.div>
   );
-};
+});
 
 // sub-components for stars, clouds, sun center, and moon spots
-const SunCenter = () => (
-  <div className="absolute inset-1.5 rounded-full bg-amber-300" />
-);
+const SunCenter = React.memo(function SunCenter() {
+  return <div className="absolute inset-1.5 rounded-full bg-amber-300" />;
+});
 
-const MoonSpots = () => (
-  <>
-    <motion.div
-      initial={{ x: -4, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 0.15, duration: 0.35 }}
-      className="absolute bottom-1 right-2.5 h-3 w-3 rounded-full bg-slate-300"
-    />
-    <motion.div
-      initial={{ x: -4, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 0.2, duration: 0.35 }}
-      className="absolute bottom-4 left-1 h-3 w-3 rounded-full bg-slate-300"
-    />
-    <motion.div
-      initial={{ x: -4, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 0.25, duration: 0.35 }}
-      className="absolute right-2 top-2 h-2 w-2 rounded-full bg-slate-300"
-    />
-  </>
-);
+const MoonSpots = React.memo(function MoonSpots() {
+  return (
+    <>
+      <motion.div
+        initial={{ x: -4, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.15, duration: 0.35 }}
+        className="absolute bottom-1 right-2.5 h-3 w-3 rounded-full bg-slate-300"
+      />
+      <motion.div
+        initial={{ x: -4, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.35 }}
+        className="absolute bottom-4 left-1 h-3 w-3 rounded-full bg-slate-300"
+      />
+      <motion.div
+        initial={{ x: -4, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.25, duration: 0.35 }}
+        className="absolute right-2 top-2 h-2 w-2 rounded-full bg-slate-300"
+      />
+    </>
+  );
+});
 
-const Stars = () => {
+const Stars = React.memo(function Stars() {
   return (
     <>
       <motion.span
@@ -137,9 +142,9 @@ const Stars = () => {
       </motion.span>
     </>
   );
-};
+});
 
-const Clouds = () => {
+const Clouds = React.memo(function Clouds() {
   return (
     <>
       <motion.span
@@ -187,6 +192,6 @@ const Clouds = () => {
       </motion.span>
     </>
   );
-};
+});
 
 export default ToggleWrapper;

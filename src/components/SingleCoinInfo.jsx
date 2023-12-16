@@ -123,8 +123,11 @@ const SingleCoinInfo = ({ coin }) => {
                       : "text-red-500"
                 }`}
               >
-                {coin.tickers[0].trust_score.charAt(0).toUpperCase() +
-                  coin.tickers[0].trust_score.slice(1)}
+                {coin.tickers[0].trust_score === "green"
+                  ? "Good"
+                  : coin.tickers[0].trust_score === "yellow"
+                    ? "Fair"
+                    : "Low"}
               </p>
             ) : (
               <p>(Not Exposed)</p>

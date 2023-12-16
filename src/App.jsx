@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { fetchCoinsApi } from "./services/api/fetchCoinsApi";
 import CoinPage from "./pages/CoinPage";
 import Footer from "./components/Footer";
+import Loader from "./components/loader/Loader";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -35,7 +36,7 @@ function App() {
   return (
     <ThemeProvider>
       {isLoading ? (
-        "Loading..."
+        <Loader />
       ) : (
         <>
           <NavBar />

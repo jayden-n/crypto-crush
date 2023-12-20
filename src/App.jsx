@@ -10,6 +10,7 @@ import { fetchCoinsApi } from "./services/api/fetchCoinsApi";
 import CoinPage from "./pages/CoinPage";
 import Footer from "./components/Footer";
 import Loader from "./components/loader/Loader";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -35,28 +36,29 @@ function App() {
 
   return (
     <ThemeProvider>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="flex min-h-screen flex-col">
-            <NavBar />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<HomePage coins={coins} />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/account" element={<AccountPage />} />
-
-                <Route path="/coin/:coinId" element={<CoinPage />}>
-                  <Route />
-                </Route>
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </>
-      )}
+      <AuthContextProvider>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="flex min-h-screen flex-col">
+              <NavBar />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<HomePage coins={coins} />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignUpPage />} />
+                  <Route path="/account" element={<AccountPage />} />
+                  <Route path="/coin/:coinId" element={<CoinPage />}>
+                    <Route />
+                  </Route>
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </>
+        )}
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }

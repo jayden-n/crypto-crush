@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import SavedCoins from "../components/wishlist/SavedCoins";
 import { UserAuth } from "../context/AuthContext";
 
@@ -14,32 +14,38 @@ const AccountPage = () => {
       console.log(error.message);
     }
   };
-  return (
-    <div className="mx-auto max-w-[1140px]">
-      <div className="rounded-div my-12 flex items-center justify-between py-8">
-        <div>
-          <h1 className="text-2xl font-bold">Account</h1>
+
+  // protected route: must be signed in to see account page
+  if (user) {
+    return (
+      <div className="mx-auto max-w-[1140px]">
+        <div className="rounded-div my-12 flex items-center justify-between py-8">
           <div>
-            <p>Welcome, {user?.email}</p>
+            <h1 className="text-2xl font-bold">Account</h1>
+            <div>
+              <p>Welcome, {user?.email}</p>
+            </div>
+          </div>
+          <div>
+            <button
+              onClick={handleSignOut}
+              className="whitespace-nowrap rounded-md border  px-4 py-2 font-medium "
+            >
+              Sign Out
+            </button>
           </div>
         </div>
-        <div>
-          <button
-            onClick={handleSignOut}
-            className="whitespace-nowrap rounded-md border  px-4 py-2 font-medium "
-          >
-            Sign Out
-          </button>
+        <div className="rounded-div my-12 flex items-center justify-between py-8">
+          <div className="min-h-[300px] w-full">
+            <h1 className="py-4 text-2xl font-bold">Watch List</h1>
+            <SavedCoins />
+          </div>
         </div>
       </div>
-      <div className="rounded-div my-12 flex items-center justify-between py-8">
-        <div className="min-h-[300px] w-full">
-          <h1 className="py-4 text-2xl font-bold">Watch List</h1>
-          <SavedCoins />
-        </div>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
 
 export default AccountPage;

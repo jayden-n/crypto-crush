@@ -106,11 +106,11 @@ const NavBar = () => {
         }
       >
         <ul className="w-full p-4">
-          <li className="border-b py-6">
+          <li onClick={handleIsMobileScreen} className="border-b py-6">
             <Link to="/">Home</Link>
           </li>
 
-          <li className="border-b py-6">
+          <li onClick={handleIsMobileScreen} className="border-b py-6">
             <Link to="/account">Account</Link>
           </li>
 
@@ -121,13 +121,19 @@ const NavBar = () => {
 
         <div className="flex w-full flex-col p-4">
           <Link to="/login">
-            <button className="my-2 w-full rounded-md border border-secondary bg-primary p-3 text-primary shadow-xl">
+            <button
+              onClick={handleIsMobileScreen}
+              className="my-2 w-full rounded-md border border-secondary bg-primary p-3 text-primary shadow-xl"
+            >
               Log in
             </button>
           </Link>
 
           <Link to="/signup">
-            <button className="my-2 w-full rounded-md bg-button p-3 text-btnText shadow-xl">
+            <button
+              onClick={handleIsMobileScreen}
+              className="my-2 w-full rounded-md bg-button p-3 text-btnText shadow-xl"
+            >
               Sign Up
             </button>
           </Link>

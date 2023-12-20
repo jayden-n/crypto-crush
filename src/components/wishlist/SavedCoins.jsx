@@ -10,12 +10,12 @@ const SavedCoins = () => {
   const { user } = UserAuth();
 
   useEffect(() => {
-    onSnapshot(doc(db, "users", `${user.email}`), (doc) => {
+    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
       setCoins(doc.data()?.watchList);
     });
-  }, [user.email]);
+  }, [user?.email]);
 
-  const coinPath = doc(db, "users", `${user.email}`);
+  const coinPath = doc(db, "users", `${user?.email}`);
 
   // delete coin in front-end and push it back to firebase db
   const deleteCoin = async (passedId) => {
@@ -32,7 +32,7 @@ const SavedCoins = () => {
 
   return (
     <div>
-      {coins.length === 0 ? (
+      {coins?.length === 0 ? (
         <p>
           You dont have any coins yet
           <Link to="/">Click here to search coins</Link>
@@ -48,7 +48,7 @@ const SavedCoins = () => {
           </thead>
 
           <tbody>
-            {coins.map((coin) => (
+            {coins?.map((coin) => (
               <tr key={coin.id} className="h-[60px] overflow-hidden">
                 <td>{coin?.rank}</td>
                 <td>

@@ -1,14 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import Logo from "../assets/favicon.ico";
+import { UserAuth } from "../context/AuthContext";
 
 const NavBar = () => {
   const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const { user, logout } = UserAuth();
+  const navigate = useNavigate();
 
   const handleIsMobileScreen = () => {
     setIsMobileScreen(!isMobileScreen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -27,7 +39,38 @@ const NavBar = () => {
           <ThemeToggle />
         </div>
 
-        <div className="hidden md:block">
+        {user?.email ? (
+          <div className="hidden md:block">
+            <Link
+              to="/account"
+              className="whitespace-nowrap p-4 hover:text-thirdary"
+            >
+              Account
+            </Link>
+            <button
+              onClick={handleSignOut}
+              className="whitespace-nowrap rounded-md bg-button px-4 py-2 font-medium text-main"
+            >
+              Sign Out
+            </button>
+          </div>
+        ) : (
+          <div className="hidden md:block">
+            <Link
+              to="/login"
+              className="whitespace-nowrap p-4 hover:text-thirdary"
+            >
+              Log In
+            </Link>
+            <Link
+              to="/signup"
+              className="whitespace-nowrap rounded-md bg-button px-4 py-2 font-medium text-main"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
+        {/* <div className="hidden md:block">
           <Link
             to="/login"
             className="whitespace-nowrap p-4 hover:text-thirdary"
@@ -40,7 +83,7 @@ const NavBar = () => {
           >
             Sign Up
           </Link>
-        </div>
+        </div> */}
       </div>
       {/* Menu Hamburger */}
       <div

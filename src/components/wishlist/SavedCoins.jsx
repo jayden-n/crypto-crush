@@ -15,6 +15,21 @@ const SavedCoins = () => {
     });
   }, [user.email]);
 
+  const coinPath = doc(db, "users", `${user.email}`);
+
+  // delete coin in front-end and push it back to firebase db
+  const deleteCoin = async (passedId) => {
+    try {
+      const result = coins.filter((item) => item.id !== passedId);
+      await updateDoc(coinPath, {
+        watchList: result,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+    y;
+  };
+
   return (
     <div>
       {coins.length === 0 ? (
@@ -52,7 +67,10 @@ const SavedCoins = () => {
                   </Link>
                 </td>
                 <td className="pl-8">
-                  <AiOutlineClose className="cursor-pointer" />
+                  <AiOutlineClose
+                    onClick={() => deleteCoin(coin.id)}
+                    className="cursor-pointer"
+                  />
                 </td>
               </tr>
             ))}

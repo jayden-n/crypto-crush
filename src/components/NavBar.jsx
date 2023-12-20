@@ -1,14 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import Logo from "../assets/favicon.ico";
+import { UserAuth } from "../context/AuthContext";
 
 const NavBar = () => {
   const [isMobileScreen, setIsMobileScreen] = useState(false);
+  const { user, logout } = UserAuth();
+  const navigate = useNavigate();
 
   const handleIsMobileScreen = () => {
     setIsMobileScreen(!isMobileScreen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -27,7 +39,38 @@ const NavBar = () => {
           <ThemeToggle />
         </div>
 
-        <div className="hidden md:block">
+        {user?.email ? (
+          <div className="hidden md:block">
+            <Link
+              to="/account"
+              className="whitespace-nowrap p-4 hover:text-thirdary"
+            >
+              Account
+            </Link>
+            <button
+              onClick={handleSignOut}
+              className="whitespace-nowrap rounded-md bg-button px-4 py-2 font-medium text-main"
+            >
+              Sign Out
+            </button>
+          </div>
+        ) : (
+          <div className="hidden md:block">
+            <Link
+              to="/login"
+              className="whitespace-nowrap p-4 hover:text-thirdary"
+            >
+              Log In
+            </Link>
+            <Link
+              to="/signup"
+              className="whitespace-nowrap rounded-md bg-button px-4 py-2 font-medium text-main"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
+        {/* <div className="hidden md:block">
           <Link
             to="/login"
             className="whitespace-nowrap p-4 hover:text-thirdary"
@@ -40,7 +83,7 @@ const NavBar = () => {
           >
             Sign Up
           </Link>
-        </div>
+        </div> */}
       </div>
       {/* Menu Hamburger */}
       <div
@@ -63,11 +106,11 @@ const NavBar = () => {
         }
       >
         <ul className="w-full p-4">
-          <li className="border-b py-6">
+          <li onClick={handleIsMobileScreen} className="border-b py-6">
             <Link to="/">Home</Link>
           </li>
 
-          <li className="border-b py-6">
+          <li onClick={handleIsMobileScreen} className="border-b py-6">
             <Link to="/account">Account</Link>
           </li>
 
@@ -78,13 +121,19 @@ const NavBar = () => {
 
         <div className="flex w-full flex-col p-4">
           <Link to="/login">
-            <button className="my-2 w-full rounded-2xl border border-secondary bg-primary p-3 text-primary shadow-xl">
+            <button
+              onClick={handleIsMobileScreen}
+              className="my-2 w-full rounded-md border border-secondary bg-primary p-3 text-primary shadow-xl"
+            >
               Log in
             </button>
           </Link>
 
           <Link to="/signup">
-            <button className="my-2 w-full rounded-2xl bg-button p-3 text-btnText shadow-xl">
+            <button
+              onClick={handleIsMobileScreen}
+              className="my-2 w-full rounded-md bg-button p-3 text-btnText shadow-xl"
+            >
               Sign Up
             </button>
           </Link>

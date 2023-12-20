@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../../context/AuthContext";
+import { useState } from "react";
 
 const primaryVariants = {
   initial: {
@@ -13,6 +15,25 @@ const primaryVariants = {
 };
 
 export const SignUpForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { signUp } = UserAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await signUp(email, password);
+      navigate("/account");
+    } catch (error) {
+      setError(error.message);
+      console.log(error.message);
+    }
+  };
+
   return (
     <motion.div
       initial="initial"
@@ -33,8 +54,9 @@ export const SignUpForm = () => {
         <motion.p variants={primaryVariants} className="mb-8 text-center">
           Try it for free, no CC required
         </motion.p>
+        {error ? <p className="my-2 bg-red-300 p-3">{error}</p> : null}
 
-        <form onSubmit={(e) => e.preventDefault()} className="w-full">
+        <form onSubmit={handleSubmit} className="w-full">
           <motion.div variants={primaryVariants} className="mb-2 w-full">
             <label
               htmlFor="email-input"
@@ -43,6 +65,7 @@ export const SignUpForm = () => {
               Email<span className="text-red-600">*</span>
             </label>
             <input
+              onChange={(e) => setEmail(e.target.value)}
               id="email-input"
               type="email"
               placeholder="Enter your email"
@@ -59,6 +82,7 @@ export const SignUpForm = () => {
               Password<span className="text-red-600">*</span>
             </label>
             <input
+              onChange={(e) => setPassword(e.target.value)}
               id="password-input"
               type="password"
               placeholder="Enter your password"

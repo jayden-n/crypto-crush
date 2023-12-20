@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchCoinsIdApi } from "../services/api/fetchCoinsIdApi";
 import DOMPurify from "dompurify";
 import { HiHome } from "react-icons/hi";
+import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosLink } from "react-icons/io";
+
 import SingleCoinInfo from "../components/SingleCoinInfo";
 import { useParams } from "react-router-dom";
-import { IoInformationCircleOutline } from "react-icons/io5";
 import NotFoundLoader from "../components/loader/NotFoundLoader";
 
 const CoinPage = () => {
   const [coin, setCoin] = useState([]);
-  const [infoLoading, setInfoLoading] = useState(true); // Loader state for SingleCoinInfo
-  const [isLoading, setIsLoading] = useState(true); // Loader state for initial fetch
+  const [infoLoading, setInfoLoading] = useState(true);
   const params = useParams();
 
-  const fetchCoinsId = async () => {
+  // Memoize fetchCoinsId
+  const fetchCoinsId = useCallback(async () => {
     try {
       const coinsIdData = await fetchCoinsIdApi(params.coinId);
       setCoin(coinsIdData);
@@ -22,18 +23,17 @@ const CoinPage = () => {
       console.error(error);
     } finally {
       setTimeout(() => {
-        setInfoLoading(false); // Set SingleCoinInfo loader to false
-        setIsLoading(false); // Set initial loader to false
+        setInfoLoading(false);
       }, 700);
     }
-  };
+  }, [params.coinId]);
 
   useEffect(() => {
     const fetchData = async () => {
       await fetchCoinsId();
     };
     fetchData();
-  }, []);
+  }, [fetchCoinsId]);
 
   // ===================== description shorter =====================
   function truncateDescription(description, maxLength, homepageLink) {

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../../context/AuthContext";
+import { useState } from "react";
 
 const primaryVariants = {
   initial: {
@@ -13,6 +15,26 @@ const primaryVariants = {
 };
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const { signIn } = UserAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await signIn(email, password);
+      navigate("/account");
+    } catch (error) {
+      setError(error.message);
+      console.log(error.message);
+    }
+  };
+
   return (
     <motion.div
       initial="initial"
@@ -34,7 +56,7 @@ export const LoginForm = () => {
           We miss you {"<3"}
         </motion.p>
 
-        <form onSubmit={(e) => e.preventDefault()} className="w-full">
+        <form onSubmit={handleSubmit} className="w-full">
           <motion.div variants={primaryVariants} className="mb-2 w-full">
             <label
               htmlFor="email-input"
@@ -43,6 +65,7 @@ export const LoginForm = () => {
               Email<span className="text-red-600">*</span>
             </label>
             <input
+              onChange={(e) => setEmail(e.target.value)}
               id="email-input"
               type="email"
               placeholder="Enter your email"
@@ -59,6 +82,7 @@ export const LoginForm = () => {
               Password<span className="text-red-600">*</span>
             </label>
             <input
+              onChange={(e) => setPassword(e.target.value)}
               id="password-input"
               type="password"
               placeholder="Enter your password"

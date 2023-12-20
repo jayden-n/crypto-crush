@@ -1,20 +1,52 @@
 /* eslint-disable react/prop-types */
-import { AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Sparklines, SparklinesLine } from "react-sparklines";
 
 import { PiTrendDownBold } from "react-icons/pi";
 import { PiTrendUpBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
+import { db } from "../utils/firebase";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
 
 const CoinItem = ({ coin }) => {
+  const [savedCoin, setSavedCoin] = useState(false);
+  const { user } = UserAuth();
+
+  // adding coins to wishlist logic
+  const coinPath = doc(db, "users", `${user?.email}`);
+
+  const saveCoin = async () => {
+    if (user?.email) {
+      setSavedCoin(true);
+      await updateDoc(coinPath, {
+        watchList: arrayUnion({
+          id: coin.id,
+          name: coin.name,
+          image: coin.image,
+          rank: coin.market_cap_rank,
+          symbol: coin.symbol,
+        }),
+      });
+    } else {
+      alert("Please sign in to save a coin to your watch list! :)");
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+
   return (
     // NOTE: border-slate-400 add this
     <tr className="h-[78px] overflow-hidden border-b  duration-75 ease-in hover:bg-secondary ">
-      <td>
-        <AiOutlineStar size={18} />
+      <td onClick={saveCoin}>
+        {savedCoin ? (
+          <AiFillStar size={18} className="cursor-pointer" />
+        ) : (
+          <AiOutlineStar size={18} className="cursor-pointer" />
+        )}
       </td>
 
       {/* Coin Ranking */}

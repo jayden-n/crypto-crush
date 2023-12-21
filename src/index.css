@@ -1,68 +1,45 @@
+/* ================== TAILWIND CONFIGS ================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================== GLOBALS ================== */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply bg-primary text-primary;
+}
+.rounded-div {
+  @apply mx-auto w-full max-w-[1140px] rounded-2xl border-b border-t border-secondary bg-primary px-6 shadow-md;
+}
+main {
+  flex: 1; /* This pushes the footer to the bottom */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* ================== DARK THEME ================== */
+.dark {
+  --color-bg-primary: #171717;
+  --color-bg-secondary: #525252;
+  --color-bg-thirdary: #525252;
+  --color-text-primary: #f9f4da;
+  --color-text-main: #171717;
+  --color-text-secondary: #e2e8f0;
+  --color-text-thirdary: #f9f4da;
+  --color-text-accent: #fcba29;
+  --color-bg-input: #4a5361;
+  --color-bg-button: #fcba29;
+  --color-border-button: #fcba29;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+/*  ================== LIGHT THEME ================== */
+.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  --color-text-primary: #2d3748;
+  --color-text-main: #ffffff;
+  --color-text-secondary: #4a5568;
+  --color-text-thirdary: #000000;
+  --color-text-accent: #5046e5;
+  --color-bg-input: #edf2f7;
+  --color-bg-button: #5046e5;
+  --color-border-button: #5046e5;
 }

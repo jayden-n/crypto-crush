@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
 import { auth, db } from "../utils/firebase";
 import {

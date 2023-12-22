@@ -23,7 +23,10 @@ const AccountPage = () => {
           <div>
             <h1 className="text-2xl font-bold">Account</h1>
             <div>
-              <p>Welcome, {user?.email}</p>
+              <p className="mt-2 text-xl">
+                Welcome aboard,{" "}
+                <span className="text-accent">{user?.email}</span>
+              </p>
             </div>
           </div>
           <div>
@@ -44,7 +47,7 @@ const AccountPage = () => {
       </div>
     );
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 };
 

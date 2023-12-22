@@ -14,7 +14,7 @@ const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
   const { user } = UserAuth();
 
-  // adding coins to wishlist logic
+  // adding coins to watchlist logic
   const coinPath = doc(db, "users", `${user?.email}`);
 
   const saveCoin = async () => {

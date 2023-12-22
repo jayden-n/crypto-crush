@@ -25,9 +25,16 @@ export const SignUpForm = () => {
     e.preventDefault();
     setError("");
 
+    // Password validation
+    if (password !== document.getElementById("rt-password-input").value) {
+      setError("Passwords do not match");
+      return; // Do not proceed with sign-up if passwords do not match
+    }
+
     try {
+      // Continue with sign-up if passwords match
       await signUp(email, password);
-      navigate("/account");
+      navigate("/account"); // Redirect to "/account" after successful sign-up
     } catch (error) {
       setError(error.message);
       console.log(error.message);

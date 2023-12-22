@@ -7,30 +7,52 @@ import { PiTrendUpBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import { arrayUnion, doc, updateDoc, getDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
 
 const CoinItem = ({ coin }) => {
   const [savedCoin, setSavedCoin] = useState(false);
   const { user } = UserAuth();
 
-  // adding coins to watchlist logic
+  // Adding coins to watchlist logic
   const coinPath = doc(db, "users", `${user?.email}`);
+
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (user?.email && user?.watchList) {
+        const docSnap = await getDoc(coinPath);
+        const watchList = docSnap.data()?.watchList || [];
+        const isSaved = watchList.some((saved) => saved.id === coin.id);
+        setSavedCoin(isSaved);
+      }
+    };
+
+    checkIfSaved();
+  }, [coin.id, coinPath, user?.email, user?.watchList]);
 
   const saveCoin = async () => {
     if (user?.email) {
-      setSavedCoin(true);
-      await updateDoc(coinPath, {
-        watchList: arrayUnion({
-          id: coin.id,
-          name: coin.name,
-          image: coin.image,
-          rank: coin.market_cap_rank,
-          symbol: coin.symbol,
-        }),
-      });
+      // Check if the coin is already saved
+      const docSnap = await getDoc(coinPath);
+      const watchList = docSnap.data()?.watchList || [];
+      const isSaved = watchList.some((saved) => saved.id === coin.id);
+
+      if (!isSaved) {
+        setSavedCoin(true);
+        await updateDoc(coinPath, {
+          watchList: arrayUnion({
+            id: coin.id,
+            name: coin.name,
+            image: coin.image,
+            rank: coin.market_cap_rank,
+            symbol: coin.symbol,
+          }),
+        });
+      } else {
+        alert("Coin is already in your watchlist!");
+      }
     } else {
-      alert("Please sign in to save a coin to your watch list! :)");
+      alert("Please sign in to save a coin to your watchlist! :)");
     }
   };
 
@@ -39,8 +61,7 @@ const CoinItem = ({ coin }) => {
   };
 
   return (
-    // NOTE: border-slate-400 add this
-    <tr className="h-[78px] overflow-hidden border-b  duration-75 ease-in hover:bg-secondary ">
+    <tr className="h-[78px] overflow-hidden border-b duration-75 ease-in hover:bg-secondary">
       <td onClick={saveCoin}>
         {savedCoin ? (
           <AiFillStar size={18} className="cursor-pointer" />

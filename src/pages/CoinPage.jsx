@@ -1,17 +1,25 @@
+/* eslint-disable react/prop-types */
 import { useCallback, useEffect, useState } from "react";
 import { fetchCoinsIdApi } from "../services/api/fetchCoinsIdApi";
 import DOMPurify from "dompurify";
 import { HiHome } from "react-icons/hi";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosLink } from "react-icons/io";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+
+import { Link, useParams } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
+import { db } from "../utils/firebase";
+import { arrayUnion, doc, updateDoc, getDoc } from "firebase/firestore";
 
 import SingleCoinInfo from "../components/SingleCoinInfo";
-import { useParams } from "react-router-dom";
 import NotFoundLoader from "../components/loader/NotFoundLoader";
 
 const CoinPage = () => {
   const [coin, setCoin] = useState([]);
   const [infoLoading, setInfoLoading] = useState(true);
+  const [savedCoin, setSavedCoin] = useState(false);
+  const { user } = UserAuth();
   const params = useParams();
 
   // Memoize fetchCoinsId
@@ -19,6 +27,14 @@ const CoinPage = () => {
     try {
       const coinsIdData = await fetchCoinsIdApi(params.coinId);
       setCoin(coinsIdData);
+
+      // Check if the current coin is already saved by the user
+      if (user?.email && user?.watchList) {
+        const isSaved = user.watchList.some(
+          (saved) => saved.id === coinsIdData.id,
+        );
+        setSavedCoin(isSaved);
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -26,7 +42,7 @@ const CoinPage = () => {
         setInfoLoading(false);
       }, 700);
     }
-  }, [params.coinId]);
+  }, [params.coinId, user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,12 +51,40 @@ const CoinPage = () => {
     fetchData();
   }, [fetchCoinsId]);
 
-  // ===================== description shorter =====================
+  // Save coin to watchlist logic
+  const coinPath = doc(db, "users", `${user?.email}`);
+  const saveCoin = async () => {
+    if (user?.email) {
+      // Check if the coin is already saved
+      const docSnap = await getDoc(coinPath);
+      const watchList = docSnap.data()?.watchList || [];
+      const isSaved = watchList.some((saved) => saved.id === coin.id);
+
+      if (!isSaved) {
+        setSavedCoin(true);
+        await updateDoc(coinPath, {
+          watchList: arrayUnion({
+            id: coin?.id,
+            name: coin?.name,
+            image: coin?.image.large,
+            rank: coin?.market_cap_rank,
+            symbol: coin?.symbol,
+          }),
+        });
+      } else {
+        alert("Coin is already in your watchlist!");
+      }
+    } else {
+      alert("Please sign in to save a coin to your watchlist! :)");
+    }
+  };
+
+  // Description shorter function
   function truncateDescription(description, maxLength, homepageLink) {
     if (description.length > maxLength) {
       const lastSpaceIndex = description.lastIndexOf(" ", maxLength);
       const truncatedText = description.slice(0, lastSpaceIndex) + "...";
-      const learnMoreLink = `<a class="font-bold underline" href="${homepageLink}">(Learn more)</a>`;
+      const learnMoreLink = `<a class="font-bold underline" href="${homepageLink}" target="_blank" rel="noreferrer">(Learn more)</a>`;
       return truncatedText + " " + learnMoreLink;
     }
     return description;
@@ -66,24 +110,34 @@ const CoinPage = () => {
             {/* LINKS */}
             <div>
               <div className="flex items-center gap-4 text-lg md:float-right">
-                <a
-                  className="flex items-center rounded border px-3 py-1 duration-75 ease-in hover:border-main hover:bg-button hover:text-main"
-                  href={coin?.links?.homepage[0]}
-                  target="_blank"
-                  rel="noreferrer"
+                <button
+                  onClick={saveCoin}
+                  className={`
+                    flex items-center rounded border px-3 py-1 duration-75 ease-in
+                    ${
+                      savedCoin
+                        ? "border-main bg-button text-main"
+                        : "hover:border-main hover:bg-button hover:text-main"
+                    }
+                  `}
+                  disabled={savedCoin}
                 >
-                  <HiHome className="mr-2" size={18} />
-                  Homepage
-                </a>
-                <a
-                  className="flex items-center rounded border px-3 py-1 duration-75 ease-in hover:border-main hover:bg-button hover:text-main"
-                  href={coin?.links?.blockchain_site[0]}
+                  {savedCoin ? (
+                    <AiFillStar className="mr-2" size={18} />
+                  ) : (
+                    <AiOutlineStar className="mr-2" size={18} />
+                  )}
+                  {savedCoin ? "Saved" : "Add to watchlist"}
+                </button>
+                <Link
+                  to={coin?.links?.blockchain_site[0]}
                   target="_blank"
                   rel="noreferrer"
+                  className="flex items-center rounded border px-3 py-1 duration-75 ease-in hover:border-main hover:bg-button hover:text-main"
                 >
                   <IoIosLink className="mr-2" size={18} />
                   Blockchain
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -27,16 +27,21 @@ const SavedCoins = () => {
     } catch (error) {
       console.log(error.message);
     }
-    y;
   };
 
   return (
     <div>
       {coins?.length === 0 ? (
-        <p>
-          You dont have any coins yet
-          <Link to="/">Click here to search coins</Link>
-        </p>
+        <>
+          <div className="text-center">
+            <h1 className="mt-10 text-3xl font-bold tracking-tight sm:text-5xl">
+              No coins in the your list yet!
+            </h1>
+            <p className="mb-12 mt-6 text-xl text-accent underline">
+              <Link to="/">Add some coins</Link>
+            </p>
+          </div>
+        </>
       ) : (
         <table className="w-full border-collapse text-center">
           <thead>

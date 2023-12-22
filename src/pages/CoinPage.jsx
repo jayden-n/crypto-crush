@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchCoinsIdApi } from "../services/api/fetchCoinsIdApi";
 import DOMPurify from "dompurify";
-import { HiHome } from "react-icons/hi";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosLink } from "react-icons/io";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";

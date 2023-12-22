@@ -4,6 +4,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+
 import AccountPage from "./pages/AccountPage";
 import { useEffect, useState } from "react";
 import { fetchCoinsApi } from "./services/api/fetchCoinsApi";

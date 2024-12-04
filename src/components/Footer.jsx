@@ -1,5 +1,5 @@
 import { AiOutlineInstagram } from "react-icons/ai";
-import { FaFacebookF, FaGithub, FaTwitter, FaTiktok } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaTwitter } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
 
 const Footer = () => {

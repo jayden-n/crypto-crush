@@ -1,15 +1,15 @@
 import { LogoItem } from "./LogoItem";
 import {
-	SiCoinmarketcap,
-	SiBmw,
-	SiBitcoin,
-	SiBuildkite,
-	SiCouchbase,
-	SiDailymotion,
-	SiDeliveroo,
-	SiTrustpilot,
-	SiGenius,
-	SiGodaddy,
+  SiCoinmarketcap,
+  SiBmw,
+  SiBitcoin,
+  SiBuildkite,
+  SiCouchbase,
+  SiDailymotion,
+  SiDeliveroo,
+  SiTrustpilot,
+  SiGenius,
+  SiGodaddy,
 } from "react-icons/si";
 import { GiBuyCard } from "react-icons/gi";
 import { BsFileBarGraphFill } from "react-icons/bs";
@@ -22,15 +22,15 @@ import { GiProfit } from "react-icons/gi";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 
 export const LogoItemsBottom = () => (
-	<>
-		<LogoItem Icon={BiCoinStack} />
-		<LogoItem Icon={TbCoin} />
-		<LogoItem Icon={MdOutlineSecurity} />
-		<LogoItem Icon={SiCoinmarketcap} />
-		<LogoItem Icon={GoGraph} />
-		<LogoItem Icon={GiProfit} />
-		<LogoItem Icon={SiTrustpilot} />
-		<LogoItem Icon={VscWorkspaceTrusted} />
-		<LogoItem Icon={SiBitcoin} />
-	</>
+  <>
+    <LogoItem Icon={BiCoinStack} />
+    <LogoItem Icon={TbCoin} />
+    <LogoItem Icon={MdOutlineSecurity} />
+    <LogoItem Icon={SiCoinmarketcap} />
+    <LogoItem Icon={GoGraph} />
+    <LogoItem Icon={GiProfit} />
+    <LogoItem Icon={SiTrustpilot} />
+    <LogoItem Icon={VscWorkspaceTrusted} />
+    <LogoItem Icon={SiBitcoin} />
+  </>
 );

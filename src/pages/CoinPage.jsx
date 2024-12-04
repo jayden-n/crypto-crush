@@ -26,6 +26,7 @@ const CoinPage = () => {
     try {
       const coinsIdData = await fetchCoinsIdApi(params.coinId);
       setCoin(coinsIdData);
+
       // Check if the current coin is already saved by the user
       if (user?.email && user?.watchList) {
         const isSaved = user.watchList.some(
